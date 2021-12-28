@@ -1,0 +1,37 @@
+body {
+    background: url('../images/2312056.jpg');
+    background-size: cover;
+}
+
+main {
+    height: 100vh;
+}
+
+.wrapper {
+    width: 75%;
+}
+
+h2 {
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+form {
+    position: relative;
+    background: rgba(0, 0, 0, 0.5);
+
+    p {
+        margin-top: 1rem;
+    }
+
+    .note {
+        text-decoration: none;
+        color: rgb(146, 156, 216);
+        &:hover {
+            color: lighten(rgb(146, 156, 216), 10)
+        }
+    }
+
+    label {
+        color: rgb(200, 200, 200);
+    }
+}
