@@ -9,30 +9,69 @@
 </head>
 <body>
     <form>
-        <div class="titre">
+        <div class="title">
             <h2>Formulaire de saisie d'un prêt</h2>
         </div>
         <div class="container-fluid">
             <div class="row align-items">
-                <div class="col-lg-5">
-                        <label for="resp">Responsable</label>
-                        <select name="choixresp" class="form-control">
-                            <option value="agent1">Agent 1</option>
-                            <option value="agent2">Agent 2</option>
-                        </select>
+                <div class="col-md-5">
+                    <label for="resp">Responsable</label>
+                    <select name="choixresp" class="form-control" id="resp">
+                        <option value="agent1">Agent 1</option>
+                        <option value="agent2">Agent 2</option>
+                    </select>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-md-4">
                     <label class="sr-only" for="inlineFormInputGroup">Montant prêt</label>
                     <div class="input-group mb-2">
                       <div class="input-group-prepend">
                         <div class="input-group-text">Ar</div>
                       </div>
-                      <input type="number" name="pret"class="form-control" id="inlineFormInputGroup" min="0" placeholder="Montant prêt">
+                      <input type="number" name="pret" class="form-control" id="inlineFormInputGroup" min="0" placeholder="Montant prêt">
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-md-3">
                     <label for="pourcentage">Pourcentage</label>
                     <input type="number" name="pour" id="pourcentage" max="100" class="form-control">
+                </div>
+            </div>
+            <div class="row align-items">
+                <div class="col-md-6">
+                    <label for="loanDate">Date du prêt</label>
+                    <input type="date" class="form-control" id="loanDate">
+                </div>
+                <div class="col-md-6">
+                    <label for="reimbursementDate">Date de remboursement</label>
+                    <input type="date" class="form-control" id="reimbursementDate">
+                </div>
+            </div>
+            <div class="row align-items">
+                <div class="col-md-6">
+                    <label for="reimbursementMode">Mode de remboursement</label>
+                    <select name="reimbursementMode" id="reimbursementMode" class="form-control">
+                        <option>Mensuel</option>
+                        <option>Hebdomadaire</option>
+                        <option>Journalier</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="paymentMode">Mode de paiement</label>
+                    <select name="paymentMode" id="paymentMode" class="form-control">
+                        <optgroup label="Mobile Money">
+                            <option>MVola</option>
+                            <option>Airtel Money</option>
+                            <option>Orange Money</option>
+                        </optgroup>
+                        <optgroup label="Autres">
+                            <option>PayPal</option>
+                            <option>stripe</option>
+                            <option>HiPay</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="comment">Commentaire</label>
+                    <textarea name="comment" id="comment" rows="5" class="form-control" placeholder="Ajouter un commentaire..."></textarea>
                 </div>
             </div>
         </div>
