@@ -9,15 +9,15 @@
     <title>Saisie d'un prêt</title>
 </head>
 <body>
-    <main class="d-flex align-items-center justify-content-center"><div class="wrapper">
+    <main class="d-flex justify-content-center"><div class="wrapper">
     <div class="d-flex justify-content-around py-2 mb-3">
         <h2 class="text-light">Formulaire de saisie d'un prêt</h2>
     </div>
     <form class="form container-fluid rounded p-2 p-md-3">
-        <div class="row align-items">
+        <div class="row">
             <div class="col-md-5">
                 <label for="resp">Responsable</label>
-                <select name="choixresp" class="form-control" id="resp">
+                <select name="choixresp" class="form-control reg-opacity" id="resp">
                     <option value="agent1">Agent 1</option>
                     <option value="agent2">Agent 2</option>
                 </select>
@@ -28,28 +28,28 @@
                     <div class="input-group-prepend">
                     <div class="input-group-text">Ar</div>
                     </div>
-                    <input type="number" name="pret" class="form-control" id="inlineFormInputGroup" min="0" placeholder="Montant prêt">
+                    <input type="number" name="pret" class="form-control reg-opacity" id="inlineFormInputGroup" min="0" placeholder="Montant prêt">
                 </div>
             </div>
             <div class="col-md-3">
                 <label for="pourcentage">Pourcentage</label>
-                <input type="number" name="pour" id="pourcentage" max="100" class="form-control">
+                <input type="number" name="pour" id="pourcentage" max="100" class="form-control reg-opacity">
             </div>
         </div>
-        <div class="row align-items">
+        <div class="row">
             <div class="col-md-6">
                 <label for="loanDate">Date du prêt</label>
-                <input type="date" class="form-control" id="loanDate">
+                <input type="date" class="form-control reg-opacity" id="loanDate">
             </div>
             <div class="col-md-6">
                 <label for="reimbursementDate">Date de remboursement</label>
-                <input type="date" class="form-control" id="reimbursementDate">
+                <input type="date" class="form-control reg-opacity" id="reimbursementDate">
             </div>
         </div>
-        <div class="row align-items">
+        <div class="row">
             <div class="col-md-6">
                 <label for="reimbursementMode">Mode de remboursement</label>
-                <select name="reimbursementMode" id="reimbursementMode" class="form-control">
+                <select name="reimbursementMode" id="reimbursementMode" class="form-control reg-opacity">
                     <option>Mensuel</option>
                     <option>Hebdomadaire</option>
                     <option>Journalier</option>
@@ -57,7 +57,7 @@
             </div>
             <div class="col-md-6">
                 <label for="paymentMode">Mode de paiement</label>
-                <select name="paymentMode" id="paymentMode" class="form-control">
+                <select name="paymentMode" id="paymentMode" class="form-control reg-opacity">
                     <optgroup label="Mobile Money">
                         <option>MVola</option>
                         <option>Airtel Money</option>
@@ -72,15 +72,14 @@
             </div>
             <div class="col-md-6">
                 <label for="comment">Commentaire</label>
-                <textarea name="comment" id="comment" rows="5" class="form-control" placeholder="Ajouter un commentaire..."></textarea>
+                <textarea name="comment" id="comment" rows="5" class="form-control reg-opacity" placeholder="Ajouter un commentaire..."></textarea>
             </div>
         </div>
-        <p><a href="#" class="note">Ajouter une note...</a></p>
-        <div class="d-flex flex-row-reverse"><input type="submit" class="btn btn-primary" value="Enregistrer"></div>
+        <div class="d-flex justify-content-between mt-3"><a href="#" class="note">Ajouter une note...</a><input type="submit" class="btn btn-secondary" value="Enregistrer"></div>
     </form>
     </div></main>
     
-    <script src="bootstrap/js/jquery-3.6.0.min.js"></script>
+    <!-- <script src="bootstrap/js/jquery-3.6.0.min.js"></script> -->
     <script src="bootstrap/js/bootstrap.js"></script>
 </body>
 </html>

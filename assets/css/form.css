@@ -1,23 +1,48 @@
-body {
-  background: url("../images/2312056.jpg");
-  background-size: cover;
+.wrapper {
+  width: 75%;
+  -webkit-transform: translateY(15%);
+          transform: translateY(15%);
+}
+
+.reg-opacity {
+  background: rgba(255, 255, 255, 0.7);
 }
 
 main {
   height: 100vh;
-}
-
-.wrapper {
-  width: 75%;
+  overflow: hidden;
+  background: url("../images/2312056.jpg") no-repeat;
+  background-size: cover;
 }
 
 h2 {
   text-shadow: 1px 1px rgba(0, 0, 0, 0.4);
 }
 
+@-webkit-keyframes slide-down {
+  0% {
+    opacity: 0.5;
+    -webkit-transform: translateY(-20px);
+            transform: translateY(-20px);
+  }
+}
+
+@keyframes slide-down {
+  0% {
+    opacity: 0.5;
+    -webkit-transform: translateY(-20px);
+            transform: translateY(-20px);
+  }
+}
+
 form {
-  position: relative;
-  background: rgba(0, 0, 0, 0.5);
+  -webkit-animation: slide-down 1s both ease-out;
+          animation: slide-down 1s both ease-out;
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  border: 1px solid rgba(200, 200, 200, 0.7);
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
 form p {
@@ -25,15 +50,15 @@ form p {
 }
 
 form .note {
-  text-decoration: none;
-  color: #929cd8;
+  color: lightcyan;
 }
 
 form .note:hover {
-  color: #b8bee5;
+  color: white;
+  text-decoration: none;
 }
 
 form label {
-  color: #c8c8c8;
+  color: #1e1e1e;
 }
 /*# sourceMappingURL=form.css.map */
