@@ -7,9 +7,26 @@
     background: rgba(255, 255, 255, 0.7);
 }
 
+@keyframes slide-bar {
+    0% {
+        width: 0;
+    }
+}
+
+$form-slide-duration: 1s;
+
+.underline {
+    width: 80%;
+    height: 2px;
+    border-radius: 10px;
+    margin: auto;
+    background: white;
+    animation: slide-bar $form-slide-duration 1s backwards ease-in-out;
+}
+
 main {
     height: 100vh;
-    overflow: hidden;
+    overflow: scroll;
     background: url('../images/2312056.jpg') no-repeat;
     background-size: cover;
 }
@@ -20,13 +37,13 @@ h2 {
 
 @keyframes slide-down {
     0% {
-        opacity: 0.5;
-        transform: translateY(-20px);
+        opacity: 0;
+        transform: translateY(-30px);
     }
 }
 
 form {
-    animation: slide-down 1s both ease-out;
+    animation: slide-down $form-slide-duration both ease-out;
 
     // background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(6px);
