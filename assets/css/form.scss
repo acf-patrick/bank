@@ -1,5 +1,7 @@
 .wrapper {
-    width: 75%;
+    @if 100vw > 400 {
+        width: 85%;
+    }
     transform: translateY(15%);
 }
 
