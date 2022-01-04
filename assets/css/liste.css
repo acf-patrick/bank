@@ -1,0 +1,15 @@
+.shift-down {
+  -webkit-transform: translateY(15%);
+          transform: translateY(15%);
+}
+
+.entry {
+  width: 3rem;
+}
+
+tr th {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+/*# sourceMappingURL=liste.css.map */
