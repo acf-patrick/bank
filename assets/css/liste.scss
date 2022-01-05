@@ -1,9 +1,19 @@
+@keyframes rotate {
+    100% {
+        transform: rotateX(180deg);
+    }
+}
+
 .shift-down {
     transform: translateY(5%);
 }
 
 .hide {
     display: none;
+}
+
+.rotate {
+    animation: rotate 500ms ease-in-out forwards;
 }
 
 .resize-image {
@@ -33,4 +43,8 @@ th {
     &:active {
         background: rgba(0, 0, 0, 0.2);
     }
+}
+
+thead {
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
 }

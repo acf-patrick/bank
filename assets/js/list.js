@@ -135,10 +135,15 @@ let reverse = false;
 
         if (last) {
             let lastArr = last.querySelector(".arrow");
-            if (last === elt)
+            if (last === elt) {
                 reverse = !reverse;
-            else
+                // rotate arrow
+                arr.classList.toggle("rotate", reverse);
+            }
+            else {
+                reverse = false;
                 lastArr.classList.add("hide");
+            }
         }
 
     // update last
