@@ -1,0 +1,40 @@
+.shift-down {
+  -webkit-transform: translateY(5%);
+          transform: translateY(5%);
+}
+
+.hide {
+  display: none;
+}
+
+.resize-image {
+  width: 16px;
+  height: 16px;
+}
+
+.position-image {
+  position: absolute;
+  right: 1rem;
+  top: 12px;
+}
+
+.entry {
+  width: 3rem;
+}
+
+.vertical-align-middle, th {
+  vertical-align: middle;
+}
+
+th {
+  position: relative;
+}
+
+th:hover {
+  cursor: pointer;
+}
+
+th:active {
+  background: rgba(0, 0, 0, 0.2);
+}
+/*# sourceMappingURL=liste.css.map */
