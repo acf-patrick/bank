@@ -6,6 +6,10 @@
     width: 3rem;
 }
 
-tr th {
-    display: flex;
+th {
+    position: relative;
+    span {
+        position: absolute;
+        right: 0;
+    }
 }

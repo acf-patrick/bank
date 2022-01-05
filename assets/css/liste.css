@@ -7,9 +7,12 @@
   width: 3rem;
 }
 
-tr th {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+th {
+  position: relative;
+}
+
+th span {
+  position: absolute;
+  right: 0;
 }
 /*# sourceMappingURL=liste.css.map */

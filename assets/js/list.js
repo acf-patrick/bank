@@ -1,4 +1,4 @@
-import * as data from './list-content.js';
+// import * as data from './list-content.js';
 
 const strCompare = (s1, s2) => (s1 < s2)?-1:((s1==s2)?0:1);
 
@@ -6,116 +6,95 @@ class List {
     constructor() {
         this.lists = [
             {
-                "name": "Airi Satou",
-                "position": "Comptable",
-                "office": "Tokyo",
-                "age": 33,
-                "startDate": "28-11-2008",
-                "salary": 162700
+                "responsable": "Airi Satou",
+                "montant": 350000,
+                "datePret": "28-11-2021",
+                "dateFinRemboursement": "01-02-2022"
             }, {
-                "name": "Angelica Ramos",
-                "position": "CEO",
-                "office": "Londre",
-                "age": 47,
-                "startDate": "09-10-2009",
-                "salary": 1200000
+                "responsable": "Angelica Ramos",
+                "montant": 1200000,
+                "datePret": "09-10-2009",
+                "dateFinRemboursement": "01-10-2010"
             }, {
-                "name": "Ashton Cox",
-                "position": "Rédacteur téchnique",
-                "office": "San Fransisco",
-                "age": 66,
-                "startDate": "12-01-2009",
-                "salary": 86000
+                "responsable": "Ashton Cox",
+                "montant": 86000,
+                "datePret": "12-01-2009",
+                "dateFinRemboursement": "01-02-2009"
             }, {
-                "name": "Bradley Greer",
-                "position": "Software Engineer",
-                "office": "Londre",
-                "age":41 ,
-                "startDate": "13-10-2012",
-                "salary": 132000
+                "responsable": "Bradley Greer",
+                "montant": 132000,
+                "datePret": "13-10-2012",
+                "dateFinRemboursement": "01-11-2012"
             }, {
-                "name": "Brenden Wagner",
-                "position": "Software Engineer",
-                "office": "San Fransisco",
-                "age": 28,
-                "startDate": "07-06-2011",
-                "salary": 206850
+                "responsable": "Brenden Wagner",
+                "montant": 206850,
+                "datePret": "07-06-2011",
+                "dateFinRemboursement": "01-08-2011"
             }, {
-                "name": "Brielle Williamson",
-                "position": "Spécialiste en Intégration",
-                "office": "New York",
-                "age": 61,
-                "startDate": "02-12-2012",
-                "salary": 372000
+                "responsable": "Brielle Williamson",
+                "montant": 372000,
+                "datePret": "02-12-2012",
+                "dateFinRemboursement": "01-04-2013"
             }, {
-                "name": "Bruno Nash",
-                "position": "Software Engineer",
-                "office": "Londre",
-                "age": 38,
-                "startDate": "03-05-2011",
-                "salary": 163500
+                "responsable": "Bruno Nash",
+                "montant": 163500,
+                "datePret": "03-05-2011",
+                "dateFinRemboursement": "01-07-2011"
             }, {
-                "name": "Caesar Vance",
-                "position": "Assistant avant vente",
-                "office": "New York",
-                "age": 21,
-                "startDate": "12-12-2011",
-                "salary": 106450
+                "responsable": "Caesar Vance",
+                "montant": 106450,
+                "datePret": "12-12-2011",
+                "dateFinRemboursement": "01-01-2012"
             }, {
-                "name": "Cara Stevens",
-                "position": "Assistant commérical",
-                "office": "New York",
-                "age": 46,
-                "startDate": "06-12-2011",
-                "salary": 145600
+                "responsable": "Cara Stevens",
+                "montant": 145600,
+                "datePret": "06-12-2011",
+                "dateFinRemboursement": "02-01-2012"
             }, {
-                "name": "Cedric Kelly",
-                "position": "Développeur JavaScript senior",
-                "office": "Edinburgh",
-                "age": 22,
-                "startDate": "29-03-2012",
-                "salary": 433060
+                "responsable": "Cedric Kelly",
+                "montant": 433060,
+                "datePret": "29-03-2012",
+                "dateFinRemboursement": "01-07-2012"
             }, {
-                "name": "Colleen Hurst",
-                "position": "Développeur JavaScript",
-                "office": "San Fransisco",
-                "age": 39,
-                "startDate": "15-09-2009",
-                "salary": 205500
+                "responsable": "Colleen Hurst",
+                "montant": 205500,
+                "datePret": "15-09-2009",
+                "dateFinRemboursement": "01-11-2009"
             }, {
-                "name": "Charde Marshall",
-                "position": "Dirécteur Régional",
-                "office": "San Fransisco",
-                "age": 36,
-                "startDate": "16-10-2008",
-                "salary": 470600
+                "responsable": "Charde Marshall",
+                "montant": 470600,
+                "datePret": "16-10-2008",
+                "dateFinRemboursement": "01-03-2009"
             }, {
-                "name": "James Yates",
-                "position": "Web Designer",
-                "office": "New York",
-                "age": 31,
-                "startDate": "02-07-2010",
-                "salary": 200500
+                "responsable": "James Yates",
+                "datePret": "02-07-2010",
+                "dateFinRemboursement": "01-09-2010",
+                "montant": 200500
             }
         ];
+
         this.sortFuncs = {
-            "name": (a, b) => strCompare(a.name, b.name),
-            "position": (a, b) => strCompare(a.position, b.position),
-            "office": (a, b) => strCompare(a.office, b.office),
-            "age": (a, b) => a.age - b.age,
-            "startDate": (a, b) => strCompare(a.startDate, b.startDate),
-            "salary": (a, b) => a.salary - b.salary
+            "responsable": (a, b) => strCompare(a.name, b.name),
+            "montant": (a, b) => a.montant - b.montant,
+            "datePret": (a, b) => strCompare(a.datePret, b.datePret),
+            "dateFinRemboursement": (a, b) => strCompare(a.dateFinRemboursement, b.dateFinRemboursement)
         };
     }
 
     load() {
         this.lists.forEach((obj) => {
             let row = document.createElement("tr");
-            [ "name", "position", "office", "age", "startDate", "salary" ].forEach((key) => {
+            [ "responsable", "montant", "datePret", "dateFinRemboursement" ].forEach((key) => {
                 let elt = document.createElement("td");
-                elt.innerHTML = (key == "salary"?"$ ":'') + obj[key];
+                elt.innerHTML = obj[key] + (key == "montant"?" Ar":'');
                 row.appendChild(elt);
             });
+            let td = document.createElement("td");
+            td.classList.add("d-flex", "justify-content-evenly");
+            td.innerHTML = `
+                <div class="btn btn-primary">View</div><div class="btn btn-danger">Edit</div>
+            `;
+            row.appendChild(td);
             document.querySelector("tbody").appendChild(row);
         });
     }
@@ -135,8 +114,8 @@ let lists = new List();
 lists.load();
 
 window.addEventListener("click", (e) => {
-    lists.sort('salary');
+    lists.sort('montant');
     lists.render();
 });
 
-export default {lists};
+export default { lists };
