@@ -74,7 +74,7 @@ class List {
         ];
 
         this.sortFuncs = {
-            "responsable": (a, b) => strCompare(a.name, b.name),
+            "responsable": (a, b) => strCompare(a.responsable, b.responsable),
             "montant": (a, b) => a.montant - b.montant,
             "datePret": (a, b) => strCompare(a.datePret, b.datePret),
             "dateFinRemboursement": (a, b) => strCompare(a.dateFinRemboursement, b.dateFinRemboursement)
@@ -86,21 +86,26 @@ class List {
             let row = document.createElement("tr");
             [ "responsable", "montant", "datePret", "dateFinRemboursement" ].forEach((key) => {
                 let elt = document.createElement("td");
+                elt.classList.add('vertical-align-middle');
                 elt.innerHTML = obj[key] + (key == "montant"?" Ar":'');
                 row.appendChild(elt);
             });
+
+        // create view/edit buttons
             let td = document.createElement("td");
             td.classList.add("d-flex", "justify-content-evenly");
             td.innerHTML = `
-                <div class="btn btn-primary">View</div><div class="btn btn-danger">Edit</div>
+                <div class="btn btn-primary" title="view"><img class="resize-image" src="../images/view.png" alt="view"></div>
+                <div class="btn btn-danger" title="edit"><img class="resize-image" src="../images/editer.png" alt="edit"></div>
             `;
             row.appendChild(td);
+
             document.querySelector("tbody").appendChild(row);
         });
     }
 
-    sort(type) {
-        this.lists.sort(this.sortFuncs[type]);
+    sort(type, reverse) {
+        this.lists.sort(reverse ? ((a, b)  => -this.sortFuncs[type](a, b)) : this.sortFuncs[type]);
     }
 
     render() {
@@ -113,9 +118,37 @@ class List {
 let lists = new List();
 lists.load();
 
-window.addEventListener("click", (e) => {
-    lists.sort('montant');
-    lists.render();
+let last;
+let reverse = false;
+[ "responsable", "montant", "datePret", "dateFinRemboursement" ].forEach((key) => {
+    let elt = document.querySelector('.'+key);
+
+// add arrow to table header
+    let img = document.createElement("img");
+    img.src = "../images/arrow.png";
+    img.alt = "arrow";
+    img.classList.add("position-image", "resize-image", "hide", "arrow");
+    elt.appendChild(img);
+
+    elt.addEventListener("click", (e) => {
+        let arr = elt.querySelector(".arrow");
+
+        if (last) {
+            let lastArr = last.querySelector(".arrow");
+            if (last === elt)
+                reverse = !reverse;
+            else
+                lastArr.classList.add("hide");
+        }
+
+    // update last
+        last = elt;
+        arr.classList.remove("hide");
+
+    // sort the list
+        lists.sort(key, reverse);
+        lists.render();
+    });
 });
 
 export default { lists };

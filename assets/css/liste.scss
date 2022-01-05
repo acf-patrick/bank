@@ -1,15 +1,36 @@
 .shift-down {
-    transform: translateY(15%);
+    transform: translateY(5%);
+}
+
+.hide {
+    display: none;
+}
+
+.resize-image {
+    width: 16px;
+    height: 16px;
+}
+
+.position-image {
+    position: absolute;
+    right: 1rem;
+    top: 12px;
 }
 
 .entry {
     width: 3rem;
 }
 
+.vertical-align-middle, th {
+    vertical-align: middle;
+}
+
 th {
     position: relative;
-    span {
-        position: absolute;
-        right: 0;
+    &:hover {
+        cursor: pointer;
+    }
+    &:active {
+        background: rgba(0, 0, 0, 0.2);
     }
 }
