@@ -79,10 +79,14 @@ class List {
             "datePret": (a, b) => strCompare(a.datePret, b.datePret),
             "dateFinRemboursement": (a, b) => strCompare(a.dateFinRemboursement, b.dateFinRemboursement)
         };
+
+        this.count = 5;
     }
 
     load() {
-        this.lists.forEach((obj) => {
+        for (let i=0; i<this.count; ++i) {
+            let obj = this.lists[i];
+
             let row = document.createElement("tr");
             [ "responsable", "montant", "datePret", "dateFinRemboursement" ].forEach((key) => {
                 let elt = document.createElement("td");
@@ -101,7 +105,7 @@ class List {
             row.appendChild(td);
 
             document.querySelector("tbody").appendChild(row);
-        });
+        }
     }
 
     sort(type, reverse) {
@@ -111,12 +115,22 @@ class List {
     render() {
         document.querySelector("tbody").remove();
         document.querySelector("table").appendChild(document.createElement("tbody"));
-        this.load();
+        this.load(this.count);
     }
 };
 
 let lists = new List();
-lists.load();
+
+// define entry max value
+let entry = document.querySelector(".entry");
+entry.max = lists.lists.length;
+entry.value = lists.count;
+entry.addEventListener("change", (e) => {
+    lists.count = entry.value;
+    lists.render();
+});
+
+lists.render();
 
 let last;
 let reverse = false;
@@ -137,8 +151,12 @@ let reverse = false;
             let lastArr = last.querySelector(".arrow");
             if (last === elt)
                 reverse = !reverse;
-            else
+            else {
+                reverse = false;
                 lastArr.classList.add("hide");
+            }
+        // rotate arrow
+            arr.classList.toggle("rotate", reverse);
         }
 
     // update last
