@@ -18,7 +18,11 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="client">Client</label>
-                <input class="form-control reg-opacity" type="text" id="client">
+                <select name="client" id="client" class="form-control reg-opacity">
+                    <option value="boa">BOA</option>
+                    <option value="avitech">Avitech</option>
+                    <option value="accesBanque">Accès Banque</option>
+                </select>
             </div>
             <div class="col-md-6">
                 <label for="resp">Responsable</label>
@@ -55,7 +59,7 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <label for="paymentMode">Mode de paiement</label>
+                <label for="paymentMode">Mode de paiement du capital</label>
                 <select name="paymentMode" id="paymentMode" class="form-control reg-opacity">
                     <option>Virement bancaire</option>
                     <optgroup label="Mobile Money">
