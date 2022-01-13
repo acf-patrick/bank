@@ -46,3 +46,20 @@ CREATE TABLE repayment (
     schedule_repayment_date datetime, exact_repayment_date datetime, 
     done boolean DEFAULT false, amount float
 );
+
+use bankinit;
+
+INSERT INTO responsible(first_name, last_name) VALUES
+	("Angelica", "Ramos"),
+    ("Cara", "Stevens"),
+    ("Caesar", "Vans");
+
+INSERT INTO client(company_name) VALUES
+	("BOA"), ("Avitech"),
+    ("Accès Banque");
+
+INSERT INTO payment_method(label) VALUES
+	("virement bancaire"), ("airtel money"),
+    ("orange money"), ("mvola");
+    
+INSERT INTO repayment_frequency(wording) VALUES ("mensuelle"), ("bimestrielle");
