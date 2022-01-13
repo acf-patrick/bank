@@ -1,0 +1,48 @@
+CREATE DATABASE bankinit;
+
+CREATE TABLE repayment_frequency (
+	ID int AUTO_INCREMENT PRIMARY KEY,
+    wording VARCHAR(20) NOT NULL 
+);
+
+CREATE TABLE payment_method (
+	ID int AUTO_INCREMENT PRIMARY KEY,
+    label VARCHAR(20) NOT NULL 
+);
+
+CREATE TABLE client (
+	ID int AUTO_INCREMENT PRIMARY KEY,
+    company_name TEXT NOT NULL,
+    contact varchar (255)
+);
+
+CREATE TABLE responsible (
+	ID int AUTO_INCREMENT PRIMARY KEY,
+    last_name varchar(255) NOT NULL,
+    first_name varchar(255) NOT NULL,
+    phone_number varchar(255)
+);
+
+CREATE TABLE loan (
+	ID int AUTO_INCREMENT PRIMARY KEY,
+    responsible_id int,
+    FOREIGN KEY(responsible_id) REFERENCES responsible(ID),
+    client_id int,
+    FOREIGN KEY(client_id) REFERENCES client(ID),
+    amount bigint, loan_date datetime, repayment_end_date datetime,
+    repayment_frequency int, 
+    benefit_payment_method int,
+    FOREIGN KEY(benefit_payment_method) REFERENCES payment_method(ID),
+    capital_payment_method int,
+    FOREIGN KEY(capital_payment_method) REFERENCES payment_method(ID),
+    remark text, closed_contract boolean DEFAULT false,
+    created_at datetime DEFAULT CURRENT_TIMESTAMP, update_at datetime
+);
+
+CREATE TABLE repayment (
+	ID int AUTO_INCREMENT PRIMARY KEY,
+    loan_id int, 
+    FOREIGN KEY(loan_id) REFERENCES loan(ID),
+    schedule_repayment_date datetime, exact_repayment_date datetime, 
+    done boolean DEFAULT false, amount float
+);
