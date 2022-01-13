@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : mar. 11 jan. 2022 à 18:17
+-- Généré le : jeu. 13 jan. 2022 à 20:44
 -- Version du serveur : 10.4.21-MariaDB
 -- Version de PHP : 8.0.11
 
@@ -28,18 +28,19 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `client` (
-  `id` int(11) NOT NULL,
-  `nom_entreprise` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `ID` int(11) NOT NULL,
+  `company_name` text NOT NULL,
+  `contact` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `client`
 --
 
-INSERT INTO `client` (`id`, `nom_entreprise`) VALUES
-(1, 'AccèsBanque'),
-(2, 'AVITECH'),
-(3, 'BOA');
+INSERT INTO `client` (`ID`, `company_name`, `contact`) VALUES
+(1, 'BOA', NULL),
+(2, 'Avitech', NULL),
+(3, 'Accès Banque', NULL);
 
 -- --------------------------------------------------------
 
@@ -49,39 +50,55 @@ INSERT INTO `client` (`id`, `nom_entreprise`) VALUES
 
 CREATE TABLE `loan` (
   `ID` int(11) NOT NULL,
-  `client` int(11) NOT NULL,
-  `amount` bigint(20) NOT NULL,
-  `implementationDate` datetime NOT NULL,
-  `repaymentEndDate` datetime NOT NULL,
-  `repaymentFrequency` int(11) NOT NULL,
-  `benefitPaymentMethod` int(11) NOT NULL,
-  `capitalPaymentMethod` int(11) NOT NULL,
-  `remark` text NOT NULL,
-  `refundMade` tinyint(1) NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL
+  `responsible_id` int(11) DEFAULT NULL,
+  `client_id` int(11) DEFAULT NULL,
+  `amount` bigint(20) DEFAULT NULL,
+  `loan_date` datetime DEFAULT NULL,
+  `repayment_end_date` datetime DEFAULT NULL,
+  `repayment_frequency` int(11) DEFAULT NULL,
+  `benefit_payment_method` int(11) DEFAULT NULL,
+  `capital_payment_method` int(11) DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `closed_contract` tinyint(1) DEFAULT 0,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `update_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `payement_method`
+-- Structure de la table `payment_method`
 --
 
-CREATE TABLE `payement_method` (
-  `id` int(11) NOT NULL,
-  `wording` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `payment_method` (
+  `ID` int(11) NOT NULL,
+  `label` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `payement_method`
+-- Déchargement des données de la table `payment_method`
 --
 
-INSERT INTO `payement_method` (`id`, `wording`) VALUES
-(1, 'virement'),
-(2, 'mvola'),
-(3, 'orange_money'),
-(4, 'airtel_money');
+INSERT INTO `payment_method` (`ID`, `label`) VALUES
+(1, 'virement bancaire'),
+(2, 'airtel money'),
+(3, 'orange money'),
+(4, 'mvola');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `repayment`
+--
+
+CREATE TABLE `repayment` (
+  `ID` int(11) NOT NULL,
+  `loan_id` int(11) DEFAULT NULL,
+  `schedule_repayment_date` datetime DEFAULT NULL,
+  `exact_repayment_date` datetime DEFAULT NULL,
+  `done` tinyint(1) DEFAULT 0,
+  `amount` float DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -90,17 +107,17 @@ INSERT INTO `payement_method` (`id`, `wording`) VALUES
 --
 
 CREATE TABLE `repayment_frequency` (
-  `id` int(11) NOT NULL,
-  `wording` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `ID` int(11) NOT NULL,
+  `wording` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `repayment_frequency`
 --
 
-INSERT INTO `repayment_frequency` (`id`, `wording`) VALUES
-(1, 'Mensuelle'),
-(2, 'Bimestrielle');
+INSERT INTO `repayment_frequency` (`ID`, `wording`) VALUES
+(1, 'mensuelle'),
+(2, 'bimestrielle');
 
 -- --------------------------------------------------------
 
@@ -109,19 +126,20 @@ INSERT INTO `repayment_frequency` (`id`, `wording`) VALUES
 --
 
 CREATE TABLE `responsible` (
-  `id` int(11) NOT NULL,
-  `nom` varchar(100) NOT NULL,
-  `prenom` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `ID` int(11) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `phone_number` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `responsible`
 --
 
-INSERT INTO `responsible` (`id`, `nom`, `prenom`) VALUES
-(1, 'Gregoire', 'Margothon'),
-(2, 'Olivier', 'Felix'),
-(3, 'Nebra', 'Mathieu');
+INSERT INTO `responsible` (`ID`, `last_name`, `first_name`, `phone_number`) VALUES
+(1, 'Ramos', 'Angelica', NULL),
+(2, 'Stevens', 'Cara', NULL),
+(3, 'Vans', 'Caesar', NULL);
 
 --
 -- Index pour les tables déchargées
@@ -131,31 +149,42 @@ INSERT INTO `responsible` (`id`, `nom`, `prenom`) VALUES
 -- Index pour la table `client`
 --
 ALTER TABLE `client`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Index pour la table `loan`
 --
 ALTER TABLE `loan`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `responsible_id` (`responsible_id`),
+  ADD KEY `client_id` (`client_id`),
+  ADD KEY `benefit_payment_method` (`benefit_payment_method`),
+  ADD KEY `capital_payment_method` (`capital_payment_method`);
+
+--
+-- Index pour la table `payment_method`
+--
+ALTER TABLE `payment_method`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Index pour la table `payement_method`
+-- Index pour la table `repayment`
 --
-ALTER TABLE `payement_method`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `repayment`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `loan_id` (`loan_id`);
 
 --
 -- Index pour la table `repayment_frequency`
 --
 ALTER TABLE `repayment_frequency`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Index pour la table `responsible`
 --
 ALTER TABLE `responsible`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -165,7 +194,7 @@ ALTER TABLE `responsible`
 -- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `loan`
@@ -174,22 +203,47 @@ ALTER TABLE `loan`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `payement_method`
+-- AUTO_INCREMENT pour la table `payment_method`
 --
-ALTER TABLE `payement_method`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `payment_method`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT pour la table `repayment`
+--
+ALTER TABLE `repayment`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `repayment_frequency`
 --
 ALTER TABLE `repayment_frequency`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `responsible`
 --
 ALTER TABLE `responsible`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `loan`
+--
+ALTER TABLE `loan`
+  ADD CONSTRAINT `loan_ibfk_1` FOREIGN KEY (`responsible_id`) REFERENCES `responsible` (`ID`),
+  ADD CONSTRAINT `loan_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `client` (`ID`),
+  ADD CONSTRAINT `loan_ibfk_3` FOREIGN KEY (`benefit_payment_method`) REFERENCES `payment_method` (`ID`),
+  ADD CONSTRAINT `loan_ibfk_4` FOREIGN KEY (`capital_payment_method`) REFERENCES `payment_method` (`ID`);
+
+--
+-- Contraintes pour la table `repayment`
+--
+ALTER TABLE `repayment`
+  ADD CONSTRAINT `repayment_ibfk_1` FOREIGN KEY (`loan_id`) REFERENCES `loan` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
