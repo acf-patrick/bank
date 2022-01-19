@@ -63,3 +63,21 @@ INSERT INTO payment_method(label) VALUES
     ("orange money"), ("mvola");
     
 INSERT INTO repayment_frequency(wording) VALUES ("mensuelle"), ("bimestrielle");
+
+ALTER TABLE client CHANGE ID id INT AUTO_INCREMENT;
+ALTER TABLE loan CHANGE ID id INT AUTO_INCREMENT;
+ALTER TABLE payment_method CHANGE ID id INT AUTO_INCREMENT;
+ALTER TABLE repayment CHANGE ID id INT AUTO_INCREMENT;
+ALTER TABLE repayment_frequency CHANGE ID id INT AUTO_INCREMENT;
+ALTER TABLE responsible CHANGE ID id INT AUTO_INCREMENT;
+ALTER TABLE repayment CHANGE schedule_repayment_date scheduled_repayment_date datetime;
+ALTER TABLE loan ADD implementation_date datetime AFTER amount;
+ALTER TABLE loan DROP loan_date;
+ALTER TABLE loan ADD refund_made boolean AFTER remark;
+ALTER TABLE loan DROP closed_contract; 
+
+DELETE FROM responsible;
+INSERT INTO responsible(last_name, first_name, phone_number) VALUES
+	("MIHARISOA", "Tojoniaina Patrick", "0343784594"),
+    ("ANDRIATIANA", "Jean-Marie", "0347558804"),
+    ("RANAIVOARISON", "Harena Finaritra", "0347944443");
