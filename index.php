@@ -37,7 +37,7 @@
             </div>
             <div class="col-md-6">
                 <label for="resp">Responsable</label>
-                <select name="choixresp" class="form-control reg-opacity" id="resp">
+                <select name="responsible" class="form-control reg-opacity" id="resp">
                 <?php
                     $response = $db->query("SELECT first_name, last_name FROM responsible");
                     while ($data = $response->fetch())
@@ -52,22 +52,22 @@
                 <label class="sr-only" for="inlineFormInputGroup">Montant prêt</label>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend"><div class="input-group-text">Ar</div></div>
-                    <input type="number" name="pret" class="form-control reg-opacity" id="inlineFormInputGroup" min="0" placeholder="Montant prêt">
+                    <input type="number" name="loan" class="form-control reg-opacity" id="inlineFormInputGroup" min="0" placeholder="Montant prêt">
                 </div>
             </div>
             <div class="col-md-6">
                 <label for="percentage">Pourcentage</label>
-                <input type="number" name="pour" id="percentage" max="100" class="form-control reg-opacity">
+                <input type="number" name="percentage" id="percentage" max="100" class="form-control reg-opacity">
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
                 <label for="loanDate">Date du prêt</label>
-                <input type="date" class="form-control reg-opacity" id="loanDate">
+                <input type="date" name="loanDate" class="form-control reg-opacity" id="loanDate">
             </div>
             <div class="col-md-6">
-                <label for="reimbursementDate">Date de remboursement</label>
-                <input type="date" class="form-control reg-opacity" id="reimbursementDate">
+                <label for="repaymentDate">Date de remboursement</label>
+                <input type="date" name="repaymentDate" class="form-control reg-opacity" id="repaymentDate">
             </div>
         </div>
         <div class="row">
@@ -95,8 +95,8 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <label for="reimbursementMode">Mode de remboursement</label>
-                <select name="reimbursementMode" id="reimbursementMode" class="form-control reg-opacity">
+                <label for="repaymentMode">Mode de remboursement</label>
+                <select name="repaymentMode" id="repaymentMode" class="form-control reg-opacity">
                 <?php
                     $response = $db->query("SELECT wording FROM repayment_frequency");
                     $datas = $response->fetchAll(PDO::FETCH_COLUMN);
