@@ -61,7 +61,7 @@ form {
         color: $link-color;
         &:hover {
             color: lighten($link-color, 10);
-                text-decoration: none;
+            text-decoration: none;
         }
     }
 
