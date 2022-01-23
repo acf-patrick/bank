@@ -22,16 +22,17 @@
         <h2 class="text-light text-center">Formulaire de saisie d'un prêt</h2>
         <div class="underline"></div>
     </div>
-    <form class="form container-fluid rounded p-2 p-md-3">
+    <form class="form container-fluid rounded p-2 p-md-3" method="POST" action="./Controller/Loan.php">
         <div class="row">
             <div class="col-md-6">
                 <label for="client">Client</label>
                 <select name="client" id="client" class="form-control reg-opacity" value="">
                 <?php
-                    $response = $db->query("SELECT company_name FROM client");
-                    while ($data = $response->fetch())
-                        echo "<option value=\"{$data["company_name"]}\">{$data["company_name"]}</option>";
-                    $response->closeCursor();
+                    $response = $db->query("SELECT id, company_name FROM client");
+                    $datas = $response->fetchAll(PDO::FETCH_KEY_PAIR);
+                    foreach ($datas as $id=>$company_name)
+                        echo "<option value=\"$id\">$company_name</option>";
+                    
                 ?>
                 </select>
             </div>
@@ -39,10 +40,11 @@
                 <label for="resp">Responsable</label>
                 <select name="responsible" class="form-control reg-opacity" id="resp">
                 <?php
-                    $response = $db->query("SELECT first_name, last_name FROM responsible");
-                    while ($data = $response->fetch())
-                        echo "<option value=\"{$data["last_name"]}" . " " . "{$data["first_name"]}\">{$data["last_name"]}" . " " . "{$data["first_name"]}</option>";
-                    $response->closeCursor();
+                    $response = $db->query("SELECT id, first_name, last_name FROM responsible");
+                    $datas = $response->fetchAll(PDO::FETCH_UNIQUE);
+                    foreach ($datas as $id=>$name)
+                        echo "<option value=\"$id\">{$name["last_name"]} {$name["first_name"]}</option>";
+                    
                 ?>
                 </select>
             </div>
@@ -52,7 +54,7 @@
                 <label class="sr-only" for="inlineFormInputGroup">Montant prêt</label>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend"><div class="input-group-text">Ar</div></div>
-                    <input type="number" name="loan" class="form-control reg-opacity" id="inlineFormInputGroup" min="0" placeholder="Montant prêt">
+                    <input type="number" name="amount" class="form-control reg-opacity" id="inlineFormInputGroup" min="0" placeholder="Montant prêt">
                 </div>
             </div>
             <div class="col-md-6">
@@ -75,11 +77,11 @@
                 <label for="paymentMode">Mode de paiement du capital</label>
                 <select name="paymentMode" id="paymentMode" class="form-control reg-opacity">
                 <?php
-                    $response = $db->query("SELECT label FROM payment_method");
-                    $datas = $response->fetchAll($mode = PDO::FETCH_COLUMN);
-                    foreach ($datas as $data)
-                        echo "<option value=$data>$data</option>";
-                    $response->closeCursor();
+                    $response = $db->query("SELECT id, label FROM payment_method");
+                    $datas = $response->fetchAll(PDO::FETCH_KEY_PAIR);
+                    foreach ($datas as $id=>$label)
+                        echo "<option value=\"$id\">$label</option>";
+                    
                 ?>
                 </select>
             </div>
@@ -87,8 +89,8 @@
                 <label for="interestPaymentMode">Mode de paiement des intérêts</label>
                 <select name="interestPaymentMode" id="interestPaymentMode" class="form-control reg-opacity">
                 <?php
-                    foreach ($datas as $data)
-                        echo "<option value=$data>$data</option>";
+                    foreach ($datas as $id=>$label)
+                        echo "<option value=\"$id\">$label</option>";
                 ?>
                 </select>
             </div>
@@ -98,11 +100,11 @@
                 <label for="repaymentMode">Mode de remboursement</label>
                 <select name="repaymentMode" id="repaymentMode" class="form-control reg-opacity">
                 <?php
-                    $response = $db->query("SELECT wording FROM repayment_frequency");
-                    $datas = $response->fetchAll(PDO::FETCH_COLUMN);
-                    foreach ($datas as $data)
-                        echo "<option value=$data>$data</option>";
-                    $response->closeCursor();
+                    $response = $db->query("SELECT id, wording FROM repayment_frequency");
+                    $datas = $response->fetchAll(PDO::FETCH_KEY_PAIR);
+                    foreach ($datas as $id=>$wording)
+                        echo "<option value=\"$id\">$wording</option>";
+                    
                 ?>
                 </select>
             </div>
