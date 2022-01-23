@@ -1,9 +1,6 @@
-<?php
-    try {
-        $db = new PDO("mysql:host=localhost:3306;dbname=bankinit", "root", "", [ PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION ]);
-    } catch (Exception $e) {
-        die ("Error : " . $e->getMessage());
-    }
+<?php 
+    include("./assets/php/functions.php");
+    $db = getDataBase();
 ?>
 
 <!DOCTYPE html>
@@ -26,13 +23,12 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="client">Client</label>
-                <select name="client" id="client" class="form-control reg-opacity" value="">
+                <select name="client" id="client" class="form-control reg-opacity" value="" required>
                 <?php
                     $response = $db->query("SELECT id, company_name FROM client");
                     $datas = $response->fetchAll(PDO::FETCH_KEY_PAIR);
                     foreach ($datas as $id=>$company_name)
                         echo "<option value=\"$id\">$company_name</option>";
-                    
                 ?>
                 </select>
             </div>
@@ -44,7 +40,6 @@
                     $datas = $response->fetchAll(PDO::FETCH_UNIQUE);
                     foreach ($datas as $id=>$name)
                         echo "<option value=\"$id\">{$name["last_name"]} {$name["first_name"]}</option>";
-                    
                 ?>
                 </select>
             </div>
@@ -54,7 +49,7 @@
                 <label class="sr-only" for="inlineFormInputGroup">Montant prêt</label>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend"><div class="input-group-text">Ar</div></div>
-                    <input type="number" name="amount" class="form-control reg-opacity" id="inlineFormInputGroup" min="0" placeholder="Montant prêt">
+                    <input type="number" name="amount" class="form-control reg-opacity" id="inlineFormInputGroup" min="0" placeholder="Montant prêt" required>
                 </div>
             </div>
             <div class="col-md-6">
@@ -65,11 +60,11 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="loanDate">Date du prêt</label>
-                <input type="date" name="loanDate" class="form-control reg-opacity" id="loanDate">
+                <input type="date" name="loanDate" class="form-control reg-opacity" id="loanDate" required>
             </div>
             <div class="col-md-6">
                 <label for="repaymentDate">Date de remboursement</label>
-                <input type="date" name="repaymentDate" class="form-control reg-opacity" id="repaymentDate">
+                <input type="date" name="repaymentDate" class="form-control reg-opacity" id="repaymentDate" required>
             </div>
         </div>
         <div class="row">
@@ -81,7 +76,6 @@
                     $datas = $response->fetchAll(PDO::FETCH_KEY_PAIR);
                     foreach ($datas as $id=>$label)
                         echo "<option value=\"$id\">$label</option>";
-                    
                 ?>
                 </select>
             </div>
@@ -104,7 +98,6 @@
                     $datas = $response->fetchAll(PDO::FETCH_KEY_PAIR);
                     foreach ($datas as $id=>$wording)
                         echo "<option value=\"$id\">$wording</option>";
-                    
                 ?>
                 </select>
             </div>
@@ -113,12 +106,14 @@
                 <textarea name="comment" id="comment" rows="5" class="form-control reg-opacity" placeholder="Ajouter un commentaire..."></textarea>
             </div>
         </div>
-        <div class="d-flex justify-content-between mt-3"><a href="#" class="note">Ajouter une note...</a><input type="submit" class="btn btn-secondary" value="Enregistrer"></div>
+        <div class="d-flex justify-content-between mt-3">
+            <a href="#comment" class="note">Ajouter une note...</a>
+            <input type="submit" class="btn btn-secondary" value="Enregistrer">
+        </div>
     </form>
     <div class="mt-3"><a href="./assets/html/list.html" class="btn btn-primary">Accéder à la liste des prêts</a></div>
     </div></main>
     
-    <!-- <script src="bootstrap/js/jquery-3.6.0.min.js"></script> -->
     <script src="assets/css/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>

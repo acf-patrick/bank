@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : mer. 19 jan. 2022 à 19:32
+-- Généré le : dim. 23 jan. 2022 à 20:51
 -- Version du serveur : 10.4.21-MariaDB
 -- Version de PHP : 8.0.11
 
@@ -137,9 +137,9 @@ CREATE TABLE `responsible` (
 --
 
 INSERT INTO `responsible` (`id`, `last_name`, `first_name`, `phone_number`) VALUES
-(4, 'MIHARISOA', 'Tojoniaina Patrick', '0343784594'),
-(5, 'ANDRIATIANA', 'Jean-Marie', '0347558804'),
-(6, 'RANAIVOARISON', 'Harena Finaritra', '0347944443');
+(1, 'MIHARISOA', 'Tojoniaina Patrick', '0343784594'),
+(2, 'ANDRIATIANA', 'Jean-Marie', '0347558804'),
+(3, 'RANAIVOARISON', 'Harena Finaritra', '0347944443');
 
 --
 -- Index pour les tables déchargées
@@ -159,7 +159,9 @@ ALTER TABLE `loan`
   ADD KEY `responsible_id` (`responsible_id`),
   ADD KEY `client_id` (`client_id`),
   ADD KEY `benefit_payment_method` (`benefit_payment_method`),
-  ADD KEY `capital_payment_method` (`capital_payment_method`);
+  ADD KEY `capital_payment_method` (`capital_payment_method`),
+  ADD KEY `repayment_frequency` (`repayment_frequency`),
+  ADD KEY `repayment_frequency_2` (`repayment_frequency`);
 
 --
 -- Index pour la table `payment_method`
@@ -200,7 +202,7 @@ ALTER TABLE `client`
 -- AUTO_INCREMENT pour la table `loan`
 --
 ALTER TABLE `loan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `payment_method`
@@ -237,7 +239,8 @@ ALTER TABLE `loan`
   ADD CONSTRAINT `loan_ibfk_1` FOREIGN KEY (`responsible_id`) REFERENCES `responsible` (`ID`),
   ADD CONSTRAINT `loan_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `client` (`ID`),
   ADD CONSTRAINT `loan_ibfk_3` FOREIGN KEY (`benefit_payment_method`) REFERENCES `payment_method` (`ID`),
-  ADD CONSTRAINT `loan_ibfk_4` FOREIGN KEY (`capital_payment_method`) REFERENCES `payment_method` (`ID`);
+  ADD CONSTRAINT `loan_ibfk_4` FOREIGN KEY (`capital_payment_method`) REFERENCES `payment_method` (`ID`),
+  ADD CONSTRAINT `loan_ibfk_5` FOREIGN KEY (`repayment_frequency`) REFERENCES `repayment_frequency` (`ID`);
 
 --
 -- Contraintes pour la table `repayment`

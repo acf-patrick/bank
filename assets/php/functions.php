@@ -27,15 +27,7 @@ function insertLoan ($responsibleID, $clientID, $amount, $implementationDate, $r
     ];
     $keys = array_keys($pairs);
 
-    $request = "INSERT INTO loan(";
-    foreach ($keys as $key)
-        $request = "$request, $key";
-    $request = "$request)";
-
-    $request = "$request VALUES(";
-    foreach ($keys as $key)
-        $request = "$request, :$key";
-    $request = "$request)";
+    $request = "INSERT INTO loan(" . implode(", ", $keys) . ") VALUES(:" . implode(", :", $keys) . ")";
 
 // prepared request
     $req = $db->prepare($request);

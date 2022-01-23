@@ -81,3 +81,5 @@ INSERT INTO responsible(last_name, first_name, phone_number) VALUES
 	("MIHARISOA", "Tojoniaina Patrick", "0343784594"),
     ("ANDRIATIANA", "Jean-Marie", "0347558804"),
     ("RANAIVOARISON", "Harena Finaritra", "0347944443");
+
+ALTER TABLE loan ADD CONSTRAINT FOREIGN KEY (repayment_frequency) REFERENCES repayment_frequency(id);
