@@ -3,75 +3,8 @@
 const strCompare = (s1, s2) => (s1 < s2)?-1:((s1==s2)?0:1);
 
 class List {
-    constructor() {
-        this.lists = [
-            {
-                "responsable": "Airi Satou",
-                "montant": 350000,
-                "datePret": "28-11-2021",
-                "dateFinRemboursement": "01-02-2022"
-            }, {
-                "responsable": "Angelica Ramos",
-                "montant": 1200000,
-                "datePret": "09-10-2009",
-                "dateFinRemboursement": "01-10-2010"
-            }, {
-                "responsable": "Ashton Cox",
-                "montant": 86000,
-                "datePret": "12-01-2009",
-                "dateFinRemboursement": "01-02-2009"
-            }, {
-                "responsable": "Bradley Greer",
-                "montant": 132000,
-                "datePret": "13-10-2012",
-                "dateFinRemboursement": "01-11-2012"
-            }, {
-                "responsable": "Brenden Wagner",
-                "montant": 206850,
-                "datePret": "07-06-2011",
-                "dateFinRemboursement": "01-08-2011"
-            }, {
-                "responsable": "Brielle Williamson",
-                "montant": 372000,
-                "datePret": "02-12-2012",
-                "dateFinRemboursement": "01-04-2013"
-            }, {
-                "responsable": "Bruno Nash",
-                "montant": 163500,
-                "datePret": "03-05-2011",
-                "dateFinRemboursement": "01-07-2011"
-            }, {
-                "responsable": "Caesar Vance",
-                "montant": 106450,
-                "datePret": "12-12-2011",
-                "dateFinRemboursement": "01-01-2012"
-            }, {
-                "responsable": "Cara Stevens",
-                "montant": 145600,
-                "datePret": "06-12-2011",
-                "dateFinRemboursement": "02-01-2012"
-            }, {
-                "responsable": "Cedric Kelly",
-                "montant": 433060,
-                "datePret": "29-03-2012",
-                "dateFinRemboursement": "01-07-2012"
-            }, {
-                "responsable": "Colleen Hurst",
-                "montant": 205500,
-                "datePret": "15-09-2009",
-                "dateFinRemboursement": "01-11-2009"
-            }, {
-                "responsable": "Charde Marshall",
-                "montant": 470600,
-                "datePret": "16-10-2008",
-                "dateFinRemboursement": "01-03-2009"
-            }, {
-                "responsable": "James Yates",
-                "datePret": "02-07-2010",
-                "dateFinRemboursement": "01-09-2010",
-                "montant": 200500
-            }
-        ];
+    constructor(lists) {
+        this.lists = lists;
 
         this.sortFuncs = {
             "responsable": (a, b) => strCompare(a.responsable, b.responsable),
@@ -88,7 +21,7 @@ class List {
             let obj = this.lists[i];
 
             let row = document.createElement("tr");
-            [ "responsable", "montant", "datePret", "dateFinRemboursement" ].forEach((key) => {
+            [ "responsable", "montant", "datePret", "dateFinRemboursement" ].forEach(key => {
                 let elt = document.createElement("td");
                 elt.classList.add('vertical-align-middle');
                 elt.innerHTML = obj[key] + (key == "montant"?" Ar":'');
@@ -119,54 +52,66 @@ class List {
     }
 };
 
-let lists = new List();
+fetch("../php/register.php")
+ .then( response => response.json() )
+ .then( data => { 
+    let lists = new List(data.map(obj => {
+        let ret = {};
 
-// define entry max value
-let entry = document.querySelector(".entry");
-entry.max = lists.lists.length;
-entry.value = lists.count;
-entry.addEventListener("change", (e) => {
-    lists.count = entry.value;
-    lists.render();
-});
+        ret.responsable = obj.responsible;
+        ret.montant = obj.amount;
+        ret.datePret = obj.created_at;
+        ret.dateFinRemboursement = obj.repayment_end_date;
 
-lists.render();
+        return ret;
+    }));
 
-let last;
-let reverse = false;
-[ "responsable", "montant", "datePret", "dateFinRemboursement" ].forEach((key) => {
-    let elt = document.querySelector('.'+key);
-
-// add arrow to table header
-    let img = document.createElement("img");
-    img.src = "../images/arrow.png";
-    img.alt = "arrow";
-    img.classList.add("position-image", "resize-image", "hide", "arrow");
-    elt.appendChild(img);
-
-    elt.addEventListener("click", (e) => {
-        let arr = elt.querySelector(".arrow");
-
-        if (last) {
-            let lastArr = last.querySelector(".arrow");
-            if (last === elt)
-                reverse = !reverse;
-            else {
-                reverse = false;
-                lastArr.classList.add("hide");
-            }
-        // rotate arrow
-            arr.classList.toggle("rotate", reverse);
-        }
-
-    // update last
-        last = elt;
-        arr.classList.remove("hide");
-
-    // sort the list
-        lists.sort(key, reverse);
+    // define entry max value
+    let entry = document.querySelector(".entry");
+    entry.max = lists.lists.length;
+    entry.value = lists.count;
+    entry.addEventListener("change", e => {
+        lists.count = entry.value;
         lists.render();
+    });
+
+    lists.render();
+
+    let last;
+    let reverse = false;
+    [ "responsable", "montant", "datePret", "dateFinRemboursement" ].forEach( key => {
+        let elt = document.querySelector('.'+key);
+
+    // add arrow to table header
+        let img = document.createElement("img");
+        img.src = "../images/arrow.png";
+        img.alt = "arrow";
+        img.classList.add("position-image", "resize-image", "hide", "arrow");
+        elt.appendChild(img);
+
+        elt.addEventListener("click", (e) => {
+            let arr = elt.querySelector(".arrow");
+
+            if (last) {
+                let lastArr = last.querySelector(".arrow");
+                if (last === elt)
+                    reverse = !reverse;
+                else {
+                    reverse = false;
+                    lastArr.classList.add("hide");
+                }
+            // rotate arrow
+                arr.classList.toggle("rotate", reverse);
+            }
+
+        // update last
+            last = elt;
+            arr.classList.remove("hide");
+
+        // sort the list
+            lists.sort(key, reverse);
+            lists.render();
+        });
     });
 });
 
-export default { lists };
